@@ -1,0 +1,83 @@
+# Configuration for RL Project
+# On-Policy vs Off-Policy Learning
+
+# Environment settings
+environment:
+  name: "FrozenLake-v1"
+  kwargs:
+    is_slippery: false
+    render_mode: null
+  
+  # Alternative environments for testing
+  alternatives:
+    - "CartPole-v1"
+    - "MountainCar-v0"
+    - "Acrobot-v1"
+
+# Training parameters
+training:
+  episodes: 1000
+  max_steps_per_episode: 100
+  
+  # Hyperparameters
+  hyperparameters:
+    alpha: 0.1  # Learning rate
+    gamma: 0.99  # Discount factor
+    epsilon: 0.1  # Exploration rate
+    epsilon_decay: 0.995
+    epsilon_min: 0.01
+
+# Algorithm settings
+algorithms:
+  sarsa:
+    enabled: true
+    name: "SARSA"
+    type: "on_policy"
+  
+  q_learning:
+    enabled: true
+    name: "Q-Learning"
+    type: "off_policy"
+  
+  # Advanced algorithms
+  ppo:
+    enabled: false
+    name: "PPO"
+    type: "on_policy"
+    learning_rate: 3e-4
+    n_steps: 2048
+    batch_size: 64
+  
+  sac:
+    enabled: false
+    name: "SAC"
+    type: "off_policy"
+    learning_rate: 3e-4
+    buffer_size: 1000000
+
+# Visualization settings
+visualization:
+  plot_learning_curves: true
+  plot_value_functions: true
+  plot_policies: true
+  save_plots: true
+  plot_format: "png"
+  dpi: 300
+
+# Logging settings
+logging:
+  level: "INFO"
+  tensorboard: true
+  wandb: false
+  log_dir: "logs"
+  
+# UI settings
+ui:
+  type: "cli"  # Options: cli, streamlit, jupyter
+  streamlit_port: 8501
+  
+# Model saving
+model_saving:
+  save_checkpoints: true
+  checkpoint_frequency: 100
+  checkpoint_dir: "checkpoints"
